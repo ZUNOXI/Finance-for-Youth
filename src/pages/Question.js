@@ -3,6 +3,7 @@ import Board from "../components/Board";
 import { Grid, Button } from "@material-ui/core";
 import qa from "../images/Q&A2.png";
 import axios from "axios";
+import zunoblog from "../images/zunoblog.png";
 
 const Question = () => {
   const [datas, setDatas] = React.useState([]);
@@ -14,7 +15,7 @@ const Question = () => {
       .then(res => {
         console.log(res);
         console.log(res.data.resdata);
-        setDatas(res.data.resdata);
+        setDatas(res.data.resdata.reverse());
       })
       .catch(e => {
         console.log(e);
@@ -35,7 +36,7 @@ const Question = () => {
           border: "1px solid #c8d0d0",
           borderRadius: "5px",
           marginTop: "5px",
-          height: "5rem"
+          height: "7rem"
         }}
       >
         <Grid item xs={7} container direction="row" alignItems="center">
@@ -43,7 +44,7 @@ const Question = () => {
           <h2>궁금한 것을 질문해 보세요!</h2>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" href="/createquestion">
+          <Button variant="contained" color="primary" href="/createquestion/0">
             질문하기
           </Button>
         </Grid>
@@ -56,7 +57,16 @@ const Question = () => {
           <Board key={data.id} one={data} />
         ))}
       </Grid>
-      <Grid item xs={3}></Grid>
+      {/* // style={{ backgroundImage: `url(${zunoblog})`, width: "100%" }} */}
+      <Grid item xs={3}>
+        <a href="https://zunoxi.tistory.com/">
+          <img
+            src={zunoblog}
+            alt=""
+            style={{ width: "90%", marginLeft: "10%" }}
+          />
+        </a>
+      </Grid>
     </Grid>
   );
 };

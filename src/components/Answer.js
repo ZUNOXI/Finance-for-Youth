@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import MessageIcon from "@material-ui/icons/Message";
 import styled from "styled-components";
-import { Icon } from "@material-ui/core";
+import { TextField, Icon } from "@material-ui/core";
 import Comment from "./Comment";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import DoneIcon from "@material-ui/icons/Done";
+import axios from "axios";
 
 const StyledIcon = styled(Icon)`
-  margin-right: 20px;
+  margin-right: 5px;
   &:hover {
     cursor: pointer;
   }
 `;
 
-const Answer = ({ data, replydata, idx }) => {
+const Answer = ({ data, calldata }) => {
+  console.log(data);
   const [acbool, setAcbool] = useState(false);
   const acomment = () => {
     if (acbool) {
@@ -22,11 +27,107 @@ const Answer = ({ data, replydata, idx }) => {
   };
   const show = one => {
     if (one) {
-      return <Comment data={replydata[idx - 1]} />;
+      return (
+        <Comment
+          data={data.rlist.reverse()}
+          cnum={data.cnum}
+          calldata={calldata}
+        />
+      );
     } else {
       return <div></div>;
     }
   };
+
+  const [editbool, setEditbool] = useState(false);
+
+  const editanswer = () => {
+    if (editbool) {
+      setEditbool(false);
+      const url = `http://localhost:9090/api/comment/commentupdate`;
+      const datas = {
+        cnum: data.cnum,
+        bnum: data.bnum,
+        uid: data.uid,
+        ccontent: editcontent,
+        ccreation_date: data.ccreation_date
+      };
+      axios
+        .post(url, datas)
+        .then(res => {
+          console.log(res);
+          calldata();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    } else {
+      setEditbool(true);
+      setEditcontent(data.ccontent);
+    }
+  };
+
+  const deleteanswer = () => {
+    const url = `http://localhost:9090/api/comment/commentdelete`;
+    const datas = {
+      cnum: data.cnum
+    };
+    axios
+      .post(url, datas)
+      .then(res => {
+        console.log(res);
+        calldata();
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  const icons = () => {
+    // 사용자와 답변작성자가 일치하는지 확인
+    if (true) {
+      return (
+        <div>
+          <StyledIcon onClick={acomment} component={MessageIcon} />
+          {editbool ? (
+            <StyledIcon
+              component={DoneIcon}
+              onClick={() => {
+                editanswer();
+              }}
+            />
+          ) : (
+            <StyledIcon
+              component={EditIcon}
+              onClick={() => {
+                editanswer();
+              }}
+            />
+          )}
+
+          <StyledIcon
+            component={DeleteIcon}
+            onClick={() => {
+              deleteanswer();
+            }}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <StyledIcon onClick={acomment} component={MessageIcon} />
+        </div>
+      );
+    }
+  };
+
+  const [editcontent, setEditcontent] = useState("");
+
+  const handleEditChange = e => {
+    setEditcontent(e.target.value);
+  };
+
   return (
     <div
       style={{
@@ -37,9 +138,20 @@ const Answer = ({ data, replydata, idx }) => {
       }}
     >
       <div style={{ marginLeft: "10%", marginRight: "5%" }}>
-        <p>{data.writer}</p>
+        <p>{data.uid}</p>
         <hr style={{ border: "0.5px solid #c8d0d0" }} />
-        <p>{data.content}</p>
+        {editbool ? (
+          <TextField
+            multiline
+            row={5}
+            variant="outlined"
+            value={editcontent}
+            onChange={handleEditChange}
+          />
+        ) : (
+          <p>{data.ccontent}</p>
+        )}
+
         <br />
         <hr style={{ border: "0.5px solid #c8d0d0" }} />
         <footer
@@ -50,8 +162,8 @@ const Answer = ({ data, replydata, idx }) => {
             marginBottom: "7px"
           }}
         >
-          <p style={{ fontSize: "12px" }}>{data.date}</p>
-          <StyledIcon onClick={acomment} component={MessageIcon} />
+          <p style={{ fontSize: "12px" }}>{data.ccreation_date}</p>
+          <div>{icons()}</div>
         </footer>
         <div>{show(acbool)}</div>
       </div>

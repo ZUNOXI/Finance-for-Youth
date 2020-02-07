@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import { Link, Route } from "react-router-dom";
-import News from "../components/News";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
@@ -11,6 +10,7 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Substock from "../components/Substock";
 import Ctest from "../components/Ctest";
 import CardPart from "../components/CardPart";
+import axios from "axios";
 
 const useStyles = makeStyles({
   root: {
@@ -21,6 +21,21 @@ const useStyles = makeStyles({
 const Home = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [newsdata, setNewsdata] = React.useState([]);
+
+  useEffect(() => {
+    const url = `http://localhost:9090/api/news`;
+    axios
+      .get(url)
+      .then(res => {
+        console.log(res.data.resdata);
+        setNewsdata(res.data.resdata);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }, []);
+
   return (
     <Grid
       container
@@ -48,30 +63,12 @@ const Home = () => {
           width: "100%"
         }}
       >
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          style={{ marginBottom: "5px" }}
-        >
-          <Grid item xs={4} style={{ backgroundColor: "blue" }}>
-            <CardPart />
-          </Grid>
-          <Grid item xs={4} style={{ backgroundColor: "lightblue" }}>
-            <CardPart />
-          </Grid>
-          <Grid item xs={4} style={{ backgroundColor: "blue" }}>
-            <CardPart />
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <BottomNavigation
             value={value}
             onChange={(event, newValue) => {
               setValue(newValue);
             }}
-            showLabel
             className={classes.root}
           >
             <Link to="/home">
@@ -86,23 +83,45 @@ const Home = () => {
           </BottomNavigation>
         </Grid>
         <Grid item xs={12}>
-          <Route path="/home" exact component={News} />
           <Route path="/home/substock" component={Substock} />
+        </Grid> */}
+        <Grid
+          style={{
+            backgroundColor: "lightgray",
+            height: "30rem",
+            width: "100%"
+          }}
+        >
+          ㅇㅇㅇㅇ
+        </Grid>
+        <Grid>
+          <h1 style={{ marginBottom: "1px" }}>News</h1>
+          <hr
+            style={{
+              marginBottom: "20px",
+              border: "0",
+              height: "3px",
+              background: "blue"
+            }}
+          />
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          style={{ marginBottom: "0px" }}
+        >
+          {newsdata.map(data => (
+            <CardPart data={data} />
+          ))}
         </Grid>
       </Grid>
-      <Grid
-        style={{
-          backgroundColor: "lightgray",
-          height: "30rem",
-          width: "100%"
-        }}
-      >
-        ㅇㅇㅇㅇ
-      </Grid>
+
       <Grid
         style={{ width: "100%", height: "10rem", backgroundColor: "#555555" }}
       >
-        place
+        empty
       </Grid>
     </Grid>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Button } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import questionicon from "../images/questionicon.png";
@@ -14,22 +14,23 @@ function a11yProps(index) {
   };
 }
 
-// const url = "http://localhost:9090/api/boardreg";
+const CreateQuestion = ({ history, match }) => {
+  // const words = ["stock", "estate", "fund", "coin", "other"];
 
-const CreateQuestion = ({ history }) => {
-  const words = ["stock", "estate", "fund", "coin", "other"];
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     id: "ssafy",
     title: "",
     content: "",
-    ctg: 0
+    ctg: 0,
+    hit: 0,
+    creation_date: 0
   });
 
-  const [tabs, setTabs] = React.useState(0);
-  const [cateinfo, setCateinfo] = React.useState("stock");
+  const [tabs, setTabs] = useState(0);
+  // const [cateinfo, setCateinfo] = useState("stock");
 
   const handleChangetab = (event, newValue) => {
-    setCateinfo(words[newValue]);
+    // setCateinfo(words[newValue]);
     setTabs(newValue);
   };
 
@@ -37,18 +38,60 @@ const CreateQuestion = ({ history }) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
+  useEffect(() => {
+    // console.log(match.params.id);
+    if (match.params.id !== "0") {
+      axios
+        .get(`http://localhost:9090/api/boarddetail/${match.params.id}`)
+        .then(res => {
+          console.log(res);
+          setValues({
+            ...values,
+            title: res.data.resdata.btitle,
+            content: res.data.resdata.bcontent,
+            ctg: res.data.resdata.bctg,
+            hit: res.data.resdata.bhit,
+            create_date: res.data.resdata.bcreation_date
+          });
+          handleChangetab(res.data.resdata.bctg);
+          // setCateinfo(words[res.data.resdata.bctg]);
+          setTabs(res.data.resdata.bctg);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    } else {
+      console.log(match.params.id);
+    }
+  }, []);
+
   const saveQuestion = e => {
     e.preventDefault();
-    const url = "http://localhost:9090/api/boardreg";
-    const datas = {
+    let url = "http://localhost:9090/api/boardreg";
+    let datas = {
       uid: values.id,
       btitle: values.title,
       bcontent: values.content,
-      bctg: cateinfo
+      bctg: tabs
     };
+    console.log(match.params.id);
+    if (match.params.id !== "0") {
+      url = "http://localhost:9090/api/boardupdate";
+      datas = {
+        bnum: match.params.id,
+        uid: values.id,
+        btitle: values.title,
+        bcontent: values.content,
+        bctg: tabs,
+        bhit: values.hit,
+        bcreation_date: values.creation_date
+      };
+    }
+
     axios
       .post(url, datas)
       .then(res => {
+        console.log(history);
         history.push("/question");
         console.log(res);
       })
@@ -76,6 +119,7 @@ const CreateQuestion = ({ history }) => {
             id="title"
             name="btitle"
             label="제목"
+            value={values.title}
             variant="outlined"
             style={{ width: "80%" }}
             onChange={handleChange("title")}
@@ -98,6 +142,7 @@ const CreateQuestion = ({ history }) => {
             name="bcontent"
             label="내용"
             variant="outlined"
+            value={values.content}
             onChange={handleChange("content")}
             multiline
             rows="20"

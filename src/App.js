@@ -1,12 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import {
-  Button,
-  AppBar,
-  Toolbar,
-  // IconButton,
-  Typography
-} from "@material-ui/core";
+import { Button, AppBar, Toolbar, Typography } from "@material-ui/core";
 import Stock from "./pages/Stock";
 import Home from "./pages/Home";
 import Fund from "./pages/Fund";
@@ -21,7 +15,10 @@ import Signup from "./pages/Signup";
 import Write from "./pages/Write";
 import DetailQuestion from "./pages/DetailQuestion";
 import CreateQuestion from "./pages/CreateQuestion";
-// import MenuIcon from "@material-ui/icons/Menu";
+import javalogo from "./images/javalogo.png";
+import springlogo from "./images/springlogo.png";
+import reactlogo from "./images/reactlogo.png";
+import dockerlogo from "./images/dockerlogo.png";
 
 function getModalStyle() {
   const top = 50;
@@ -74,7 +71,7 @@ const App = () => {
       <AppBar
         position="static"
         color="default"
-        style={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
+        style={{ backgroundColor: "rgba(255, 255, 255)", boxShadow: "none" }}
       >
         <Toolbar
           style={{
@@ -88,7 +85,7 @@ const App = () => {
                 variant="h6"
                 className={"yo"}
                 style={{ color: "blue" }}
-              > 
+              >
                 JAVER
               </Typography>
             </Button>
@@ -180,19 +177,55 @@ const App = () => {
         </Toolbar>
       </AppBar>
       {/* <Route path="/" component={Home} exact={true} /> */}
-      <div style={{ marginLeft: "20%", marginRight: "20%" }}>
-        <Route path="/home" component={Home} />
+      <Route path="/home" component={Home} />
+      <div style={{ marginLeft: "15%", marginRight: "15%" }}>
+        <Route path="/question" component={Question} exact={true} />
+        <Route path="/question/:id" component={DetailQuestion} create={true} />
+        <Route path="/createquestion/:id" component={CreateQuestion} />
+      </div>
+      <div style={{ marginLeft: "10%", marginRight: "10%" }}>
         <Route path="/stock" component={Stock} />
         <Route path="/estate" component={Estate} />
-        <Route path="/question" component={Question} exact={true} />
         <Route path="/fund" component={Fund} />
         <Route path="/coin" component={Coin} />
         <Route path="/signup" component={Signup} />
         <Route path="/wirte" component={Write} />
-        <Route path="/question/:id" component={DetailQuestion} create={true} />
-        <Route path="/createquestion" component={CreateQuestion} />
-        <Route path="/question/:id/:answerid" />
+
+        {/* <Route path="/question/:id/:answerid" /> */}
       </div>
+      <footer
+        style={{
+          backgroundColor: "#eceff1",
+          color: "#757575",
+          marginTop: "2%",
+          paddingLeft: "10%",
+          paddingRight: "10%",
+          paddingTop: "2%",
+          paddingBottom: "2%"
+        }}
+      >
+        <hr style={{ marginBottom: "2%" }} />
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+        >
+          <Grid>
+            copyright® hoyeonGgi Ltd. All rights Reserved.
+            <br />
+            대표전화 : 010-3331-2103
+            <br />
+            광주광역시 하남산단6번로 133(2층, 221)
+          </Grid>
+          <Grid>
+            <img src={javalogo} style={{ height: "50px" }} />
+            <img src={springlogo} style={{ height: "50px" }} />
+            <img src={reactlogo} style={{ height: "50px" }} />
+            <img src={dockerlogo} style={{ height: "50px" }} />
+          </Grid>
+        </Grid>
+      </footer>
     </div>
   );
 };

@@ -65,6 +65,7 @@ const Signup = () => {
     axios
       .post(URL, data)
       .then(res => {
+        console.log(data);
         console.log(res);
       })
       .catch(e => console.log(e));
@@ -113,7 +114,7 @@ const Signup = () => {
   }
 
   return (
-    <form onSubmit={save}>
+    <form onSubmit={save} style={{ marginLeft: "10%", marginRight: "10%" }}>
       <Grid container direction="row" justify="center">
         <Grid item xs={6}>
           <Grid

@@ -5,12 +5,11 @@ import MessageIcon from "@material-ui/icons/Message";
 import styled from "styled-components";
 import CreateAnswer from "../components/CreateAnswer";
 import Answer from "../components/Answer";
-import Comment from "../components/Comment";
 import axios from "axios";
 import BoardComment from "../components/BoardComment";
 // import qa from "../images/Q&A.png";
 // import questionicon from "../images/questionicon.png";
-// import axios from "axios";
+
 const StyledIcon = styled(Icon)`
   margin-right: 20px;
   &:hover {
@@ -23,21 +22,20 @@ const DetailQuestion = ({ match, history }) => {
   const [qbool, setQbool] = useState(false);
   const [abool, setAbool] = useState(false);
 
-  const [datas, setDatas] = useState([]);
-  const [commentdata, setCommentdata] = useState([]);
-  const [replydata, setReplydata] = useState([]);
-  const [answerdata, setAnswerdata] = useState([]);
+  const [datas, setDatas] = useState([]); //글
+  const [answerdata, setAnswerdata] = useState([]); // 답변
   const [isityou, setIsityou] = React.useState(false);
 
-  useEffect(() => {
+  const calldata = () => {
     axios
       .get(`http://localhost:9090/api/boarddetail/${match.params.id}`)
       .then(res => {
-        console.log(res.data.resdata);
-        console.log();
-        console.log(`http://localhost:9090/api/boarddetail/${match.params.id}`);
+        console.log(res.data.resdata, "글내용");
         setDatas(res.data.resdata);
-        if (true) {
+        if (res.data.resdata.clist) {
+          setAnswerdata(res.data.resdata.clist);
+        }
+        if (false) {
           // 현재 사용자가 글 작성자와 일치하는지 확인
           setIsityou(true);
         }
@@ -45,22 +43,10 @@ const DetailQuestion = ({ match, history }) => {
       .catch(e => {
         console.log(e);
       });
-    axios
-      .get("http://localhost:9090/api/comment/comment")
-      .then(res => {
-        setReplydata(res.data.resdata);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-    axios
-      .get("http://localhost:9090/api/reply/reply")
-      .then(res => {
-        setCommentdata(res.data.resdata);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  };
+
+  useEffect(() => {
+    calldata();
   }, []);
 
   const qcomment = () => {
@@ -82,7 +68,9 @@ const DetailQuestion = ({ match, history }) => {
   const deletequestion = e => {
     e.preventDefault();
     const url = "http://localhost:9090/api/boarddelete";
-    const datas = match.params.id;
+    const datas = {
+      bnum: match.params.id
+    };
     axios
       .post(url, datas)
       .then(res => {
@@ -91,6 +79,12 @@ const DetailQuestion = ({ match, history }) => {
       })
       .catch(e => console.log(e));
   };
+
+  const revisequestion = e => {
+    e.preventDefault();
+    history.push(`/createquestion/${datas.bnum}`);
+  };
+
   return (
     <Grid
       container
@@ -151,17 +145,19 @@ const DetailQuestion = ({ match, history }) => {
 
               {isityou ? (
                 <div>
-                  <Button
-                    variant="contanined"
-                    href="/"
-                    style={{ backgroundColor: "yellow" }}
-                  >
-                    수정
-                  </Button>
+                  <form onSubmit={revisequestion}>
+                    <Button
+                      variant="contanined"
+                      style={{ backgroundColor: "yellow" }}
+                      type="submit"
+                    >
+                      수정
+                    </Button>
+                  </form>
+
                   <form onSubmit={deletequestion}>
                     <Button
                       variant="contained"
-                      // onClick={deletequestion}
                       style={{ backgroundColor: "red" }}
                       type="submit"
                     >
@@ -181,11 +177,23 @@ const DetailQuestion = ({ match, history }) => {
             </div>
           </div>
           {qbool ? (
-            <BoardComment data={commentdata[match.params.id - 1]} />
+            <BoardComment
+              data={datas.rblist.reverse()}
+              bnum={datas.bnum}
+              calldata={calldata}
+            />
           ) : (
             <></>
           )}
-          {abool ? <CreateAnswer /> : <></>}
+          {abool ? (
+            <CreateAnswer
+              calldata={calldata}
+              showanswer={showanswer}
+              qcomment={qcomment}
+            />
+          ) : (
+            <></>
+          )}
         </div>
       </Grid>
       <Grid container justify="flex-end" style={{ marginTop: "2%" }}>
@@ -194,18 +202,17 @@ const DetailQuestion = ({ match, history }) => {
         </Button>
       </Grid>
       <p style={{ fontSize: "12px", marginTop: "0px" }}>
-        {/* 답변 총 {values.answerdata[match.params.id - 1].length}개 */}
+        답변 총 {answerdata.length}개
       </p>
-      {/* <Grid style={{ width: "100%" }}>
-        {values.answerdata[match.params.id - 1].map(data => (
-          <Answer
-            key={data.id}
-            data={data}
-            replydata={values.replydata[match.params.id - 1]}
-            idx={data.id}
-          />
-        ))}
-      </Grid> */}
+      <Grid style={{ width: "100%" }}>
+        {answerdata ? (
+          answerdata.map(data => (
+            <Answer key={data.cnum} data={data} calldata={calldata} />
+          ))
+        ) : (
+          <div></div>
+        )}
+      </Grid>
     </Grid>
   );
 };

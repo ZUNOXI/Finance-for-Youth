@@ -54,8 +54,10 @@ const Board = ({ one }) => {
             <h2>{one.btitle}</h2>
             <p>{one.bcontent}</p>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <p style={{ fontSize: "10px" }}>{one.bhit}</p>
-              <p style={{ fontSize: "10px" }}>{one.bcreation_date}</p>
+              <p style={{ fontSize: "10px", marginRight: "5px" }}>
+                조회수: {one.bhit}
+              </p>
+              <p style={{ fontSize: "10px" }}>생성일: {one.bcreation_date}</p>
             </div>
           </div>
         </StyledLink>

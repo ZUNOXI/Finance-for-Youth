@@ -1,26 +1,59 @@
 import React from "react";
 import { Button, TextField } from "@material-ui/core";
+import axios from "axios";
+import { withRouter } from "react-router-dom";
 
-const Answer = () => {
+const CreateAnswer = withRouter(({ match, calldata, showanswer }) => {
+  const [values, setValues] = React.useState({
+    num: "",
+    content: ""
+  });
+  const handleChange = prop => event => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+  const saveAnswer = e => {
+    e.preventDefault();
+    const url = "http://localhost:9090/api/comment/commentreg";
+    const datas = {
+      bnum: match.params.id,
+      uid: "ssafy",
+      ccontent: values.content
+    };
+    axios
+      .post(url, datas)
+      .then(res => {
+        calldata();
+        showanswer();
+        console.log(res);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
   return (
-    <div style={{ marginBottom: "20px" }}>
-      <TextField
-        multiline
-        rows="6"
-        variant="outlined"
-        style={{
-          backgroundColor: "#fafafa",
-          width: "100%",
-          marginBottom: "10px"
-        }}
-      />
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button variant="contained" color="primary">
-          등록
-        </Button>
+    <form onSubmit={saveAnswer}>
+      <div style={{ marginBottom: "20px" }}>
+        <TextField
+          multiline
+          rows="6"
+          variant="outlined"
+          value={values.content}
+          onChange={handleChange("content")}
+          style={{
+            backgroundColor: "#fafafa",
+            width: "100%",
+            marginBottom: "10px"
+          }}
+        />
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button variant="contained" color="primary" type="submit">
+            등록
+          </Button>
+        </div>
       </div>
-    </div>
+    </form>
   );
-};
+});
 
-export default Answer;
+export default CreateAnswer;
