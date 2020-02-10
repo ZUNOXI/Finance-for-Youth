@@ -12,7 +12,8 @@
 	<artifactId>SafeFood_Web_Spring_GJ_3_KMJ_HGW</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>SafeFood_Web_Spring_GJ_3_KMJ_HGW</name>
+	<name>Javer</name>
+
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -93,7 +94,6 @@
 		    <artifactId>spring-boot-starter-mail</artifactId>
 	        <version>1.4.3.RELEASE</version>
 		</dependency>
-		
 		<!-- <dependency>
 	    	<groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-core</artifactId>

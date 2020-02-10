@@ -116,10 +116,8 @@ public class BoardController {
 			for(Comment_dto cdto : clist)
 				cdto.setRlist(rcser.SelectListReplyComment(cdto.getCnum()));
 
-			if(rblist.size()!=0)
-				board.setRblist(rblist);
-			if(clist.size()!=0)
-				board.setClist(clist);
+			board.setRblist(rblist);
+			board.setClist(clist);
 			
 			System.out.println(board);
 			msg.put("resmsg", "succ");

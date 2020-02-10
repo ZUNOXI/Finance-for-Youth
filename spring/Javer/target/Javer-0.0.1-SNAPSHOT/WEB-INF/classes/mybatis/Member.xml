@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql.member">
+	
+	<!-- 맴버 -->
+	<insert id="insertmember" parameterType="member">
+		insert into member(uid,upw,uname,unickname,uphonenum,
+								uemail,uaddress,ufavor_ctg,uprofilephoto,
+								ubirth_date,ujoin_date,rcmd_blst)
+								values(#{uid},#{upw},#{uname},#{unickname},#{uphonenum},
+								#{uemail},#{uaddress},#{ufavor_ctg},#{uprofilephoto},
+								#{ubirth_date},#{ujoin_date},#{rcmd_blst})
+	</insert>
+	
+	<delete id="deletemember" parameterType="String">
+		delete from member where uid=#{uid}
+	</delete>
+	
+	<update id="updatemember" parameterType="member">
+		update member set uid=#{uid},upw=#{upw},uname=#{uname},unickname=#{unickname}
+						,uphonenum=#{uphonenum},uemail=#{uemail},uaddress=#{uaddress},ufavor_ctg=#{ufavor_ctg}
+						,uprofilephoto=#{uprofilephoto},ubirth_date=#{ubirth_date},ujoin_date=#{ujoin_date}
+						,rcmd_blst=#{rcmd_blst} where uid=#{uid}
+	</update>
+	
+	<select id="selectmember" parameterType="String" resultType="member">
+		select * from member where uid=#{uid}
+	</select>
+	
+</mapper>

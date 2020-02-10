@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.ssafy.javer.stock">
+  	<select id="selectList" resultType="Stock_dto">
+  		select name, now, befnum, close, high, open, low from stock
+  	</select>
+  </mapper>
+  

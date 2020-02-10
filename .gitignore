@@ -40,8 +40,6 @@ yarn-error.log*
 .mtj.tmp/
 
 # Package Files #
-*.jar
-*.war
 *.nar
 *.ear
 *.zip

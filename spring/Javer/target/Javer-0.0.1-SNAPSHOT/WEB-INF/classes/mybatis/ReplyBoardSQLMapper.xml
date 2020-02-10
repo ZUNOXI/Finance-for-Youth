@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.ssafy.javer.replyboard">
+  	<delete id="delete" parameterType="int">
+  		delete from replyboard where rnum = #{rnum}
+  	</delete>
+  	
+  	<update id="update" parameterType="ReplyBoard_dto">
+  		update replyboard set bnum = #{bnum}, uid = #{uid}, rcontent = #{rcontent}
+  		, rcreation_date = #{rcreation_date}
+  		where rnum = #{rnum} 
+  	</update>
+  	
+  	<insert id="insert" parameterType="ReplyBoard_dto">
+  		insert into replyboard(bnum, uid, rcontent, rcreation_date)
+  		values(
+  			#{bnum},
+  			#{uid},
+  			#{rcontent},
+  			#{rcreation_date}
+  		)
+  	</insert>
+  	
+  	<select id="selectOne" parameterType="int" resultType="ReplyBoard_dto">
+  		select rnum, bnum, uid, rcontent, rcreation_date from reply where rnum = #{rnum}
+  	</select>
+  	
+  	<select id="selectList" parameterType="int" resultType="ReplyBoard_dto">
+  		select rnum, bnum, uid, rcontent, rcreation_date from replyboard where bnum = #{bnum}
+  	</select>
+  </mapper>
