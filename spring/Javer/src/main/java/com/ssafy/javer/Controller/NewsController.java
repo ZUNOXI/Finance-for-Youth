@@ -53,10 +53,12 @@ public class NewsController {
 			
 			msg.put("resmsg", "succ");
 			msg.put("resdata", senddata);
+			System.out.println(nlist.toString());
 //			msg.put("resdata", nlist);
 		} catch(RuntimeException e) {
 			msg.put("resmsg", "fail");
 			msg.put("resdata", -1);
+			System.out.println("DB출력실패");
 		}
 		resEntity = new ResponseEntity<Map<String, Object>>(msg, HttpStatus.OK);
 		return resEntity;
