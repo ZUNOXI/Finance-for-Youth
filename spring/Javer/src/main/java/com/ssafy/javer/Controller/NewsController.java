@@ -42,7 +42,7 @@ public class NewsController {
 			News_dto ndto;
 			String resizeImg;
 			
-			for(int i=0; i<6; i++) {
+			for(int i=0; i<8; i++) {
 				ndto = nlist.get(i);
 				resizeImg = ndto.getImg();
 				
