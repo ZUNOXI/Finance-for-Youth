@@ -28,7 +28,7 @@ const DetailQuestion = ({ match, history }) => {
 
   const calldata = () => {
     axios
-      .get(`http://localhost:8080/api/boarddetail/${match.params.id}`)
+      .get(`http://15.165.18.192:8080/api/boarddetail/${match.params.id}`)
       .then(res => {
         let tempres = res.data.resdata;
         tempres.clist.reverse();
@@ -77,7 +77,7 @@ const DetailQuestion = ({ match, history }) => {
 
   const deletequestion = e => {
     e.preventDefault();
-    const url = "http://localhost:8080/api/boarddelete";
+    const url = "http://15.165.18.192:8080/api/boarddelete";
     const datas = {
       bnum: match.params.id
     };

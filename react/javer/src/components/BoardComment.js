@@ -25,7 +25,7 @@ const BoardComment = ({ data, bnum, calldata }) => {
     if (editbool !== -1) {
       setEditbool(-1);
       // 수정 신호 보내고 리프레쉬
-      const url = `http://localhost:8080/api/replyboard/replyupdate`;
+      const url = `http://15.165.18.192:8080/api/replyboard/replyupdate`;
       const datas = {
         rnum: data.rnum,
         bnum: data.bnum,
@@ -48,7 +48,7 @@ const BoardComment = ({ data, bnum, calldata }) => {
   };
 
   const deleteboardcomment = num => {
-    const url = `http://localhost:8080/api/replyboard/replydelete`;
+    const url = `http://15.165.18.192:8080/api/replyboard/replydelete`;
     const datas = {
       rnum: num
     };
@@ -144,7 +144,7 @@ const BoardComment = ({ data, bnum, calldata }) => {
 
   const saveComment = e => {
     e.preventDefault();
-    const url = "http://localhost:8080/api/replyboard/replyreg";
+    const url = "http://15.165.18.192:8080/api/replyboard/replyreg";
     let datas = {
       uid: localStorage.getItem("uid"),
       bnum: bnum,

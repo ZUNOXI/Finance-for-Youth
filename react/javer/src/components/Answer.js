@@ -37,7 +37,7 @@ const Answer = ({ data, calldata }) => {
   const editanswer = () => {
     if (editbool) {
       setEditbool(false);
-      const url = `http://localhost:8080/api/comment/commentupdate`;
+      const url = `http://15.165.18.192:8080/api/comment/commentupdate`;
       const datas = {
         cnum: data.cnum,
         bnum: data.bnum,
@@ -61,7 +61,7 @@ const Answer = ({ data, calldata }) => {
   };
 
   const deleteanswer = () => {
-    const url = `http://localhost:8080/api/comment/commentdelete`;
+    const url = `http://15.165.18.192:8080/api/comment/commentdelete`;
     const datas = {
       cnum: data.cnum
     };

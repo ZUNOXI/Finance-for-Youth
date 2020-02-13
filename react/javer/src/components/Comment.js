@@ -25,7 +25,7 @@ const Comment = ({ data, cnum, calldata }) => {
     if (editbool !== -1) {
       setEditbool(-1);
       // 수정 신호 보내고 리프레쉬
-      const url = `http://localhost:8080/api/replycomment/replyupdate`;
+      const url = `http://15.165.18.192:8080/api/replycomment/replyupdate`;
       const datas = {
         rnum: data.rnum,
         cnum: data.cnum,
@@ -48,7 +48,7 @@ const Comment = ({ data, cnum, calldata }) => {
   };
 
   const deleteboardcomment = num => {
-    const url = `http://localhost:8080/api/replycomment/replydelete`;
+    const url = `http://15.165.18.192:8080/api/replycomment/replydelete`;
     const datas = {
       rnum: num
     };
@@ -143,7 +143,7 @@ const Comment = ({ data, cnum, calldata }) => {
 
   const saveComment = e => {
     e.preventDefault();
-    const url = "http://localhost:8080/api/replycomment/replycommentreg";
+    const url = "http://15.165.18.192:8080/api/replycomment/replycommentreg";
     const datas = {
       cnum: cnum,
       uid: "ssafy",

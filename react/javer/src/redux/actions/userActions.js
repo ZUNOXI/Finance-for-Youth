@@ -7,7 +7,7 @@ export const userActions = {
 
 function login(id, password) {
   console.log(id, password);
-  const url = "http://localhost:8080/api/login";
+  const url = "http://15.165.18.192:8080/api/login";
   const datas = {
     uid: id,
     upw: password

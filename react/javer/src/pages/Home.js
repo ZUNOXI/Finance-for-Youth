@@ -9,7 +9,7 @@ const Home = () => {
   const [newsdata, setNewsdata] = React.useState([]);
 
   useEffect(() => {
-    const url = `http://localhost:8080/api/news`;
+    const url = `http://15.165.18.192:8080/api/news`;
     axios
       .get(url)
       .then(res => {

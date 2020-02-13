@@ -1,11 +1,9 @@
 From node:10
 
-WORKDIR /src/app
+RUN mkdir -p /app
 
-COPY package*.json ./
+WORKDIR /app
 
-RUN yarn install
+ADD . /app
 
-COPY . .
-
-CMD ["yarn","run","start"]
+CMD ["npm","run","start"]
