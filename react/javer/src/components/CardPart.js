@@ -24,7 +24,11 @@ export default function CardPart(data) {
   return (
     <Card
       className={classes.card}
-      style={{ boxShadow: "none", borderRadius: "50px" }}
+      style={{
+        // boxShadow: "none",
+        borderRadius: "30px"
+        // border: "1px solid #f5f5f5"
+      }}
     >
       <CardActionArea href={data.data.title}>
         <CardMedia
@@ -46,7 +50,8 @@ export default function CardPart(data) {
               lineHeight: "2rem",
               height: "4rem",
               WebkitLineClamp: "2",
-              WebkitBoxOrient: "vertical"
+              WebkitBoxOrient: "vertical",
+              fontFamily: "Noto Serif KR"
             }}
           >
             {data.data.urltitle}

@@ -42,7 +42,7 @@ const CreateQuestion = ({ history, match }) => {
     // console.log(match.params.id);
     if (match.params.id !== "0") {
       axios
-        .get(`http://localhost:9090/api/boarddetail/${match.params.id}`)
+        .get(`http://localhost:8080/api/boarddetail/${match.params.id}`)
         .then(res => {
           console.log(res);
           setValues({
@@ -68,7 +68,7 @@ const CreateQuestion = ({ history, match }) => {
 
   const saveQuestion = e => {
     e.preventDefault();
-    let url = "http://localhost:9090/api/boardreg";
+    let url = "http://localhost:8080/api/boardreg";
     let datas = {
       uid: values.id,
       btitle: values.title,
@@ -77,7 +77,7 @@ const CreateQuestion = ({ history, match }) => {
     };
     console.log(match.params.id);
     if (match.params.id !== "0") {
-      url = "http://localhost:9090/api/boardupdate";
+      url = "http://localhost:8080/api/boardupdate";
       datas = {
         bnum: match.params.id,
         uid: values.id,

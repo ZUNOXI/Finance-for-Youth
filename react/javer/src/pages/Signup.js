@@ -49,7 +49,7 @@ const Signup = () => {
   const save = e => {
     console.log(e.target.value);
     e.preventDefault();
-    const URL = "http://localhost:9090/rest/addMem";
+    const URL = "http://localhost:8080/rest/addMem";
     const data = {
       uid: values.id,
       upw: values.password,

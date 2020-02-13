@@ -13,7 +13,7 @@ const CreateAnswer = withRouter(({ match, calldata, showanswer }) => {
   };
   const saveAnswer = e => {
     e.preventDefault();
-    const url = "http://localhost:9090/api/comment/commentreg";
+    const url = "http://localhost:8080/api/comment/commentreg";
     const datas = {
       bnum: match.params.id,
       uid: "ssafy",

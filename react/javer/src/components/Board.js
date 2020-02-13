@@ -54,7 +54,10 @@ const Board = ({ one }) => {
             <h2>{one.btitle}</h2>
             <p>{one.bcontent}</p>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <p style={{ fontSize: "10px", marginRight: "5px" }}>
+              <p style={{ fontSize: "10px", marginRight: "10px" }}>
+                작성자: {one.uid}
+              </p>
+              <p style={{ fontSize: "10px", marginRight: "10px" }}>
                 조회수: {one.bhit}
               </p>
               <p style={{ fontSize: "10px" }}>생성일: {one.bcreation_date}</p>

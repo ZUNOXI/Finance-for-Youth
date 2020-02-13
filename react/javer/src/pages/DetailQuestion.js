@@ -7,9 +7,11 @@ import CreateAnswer from "../components/CreateAnswer";
 import Answer from "../components/Answer";
 import axios from "axios";
 import BoardComment from "../components/BoardComment";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const StyledIcon = styled(Icon)`
-  margin-right: 20px;
+  margin-right: 0.5rem;
   &:hover {
     cursor: pointer;
   }
@@ -26,7 +28,7 @@ const DetailQuestion = ({ match, history }) => {
 
   const calldata = () => {
     axios
-      .get(`http://localhost:9090/api/boarddetail/${match.params.id}`)
+      .get(`http://localhost:8080/api/boarddetail/${match.params.id}`)
       .then(res => {
         let tempres = res.data.resdata;
         tempres.clist.reverse();
@@ -40,6 +42,8 @@ const DetailQuestion = ({ match, history }) => {
         if (tempres.uid === localStorage.getItem("uid")) {
           // 현재 사용자가 글 작성자와 일치하는지 확인
           setIsityou(true);
+        } else {
+          setIsityou(false);
         }
       })
       .catch(e => {
@@ -63,13 +67,17 @@ const DetailQuestion = ({ match, history }) => {
     if (abool) {
       setAbool(false);
     } else {
-      setAbool(true);
+      if (localStorage.getItem("uid")) {
+        setAbool(true);
+      } else {
+        return alert("로그인이 필요합니다.");
+      }
     }
   };
 
   const deletequestion = e => {
     e.preventDefault();
-    const url = "http://localhost:9090/api/boarddelete";
+    const url = "http://localhost:8080/api/boarddelete";
     const datas = {
       bnum: match.params.id
     };
@@ -85,6 +93,23 @@ const DetailQuestion = ({ match, history }) => {
   const revisequestion = e => {
     e.preventDefault();
     history.push(`/createquestion/${datas.bnum}`);
+  };
+
+  const Icons = () => {
+    if (localStorage.getItem("uid") === datas.uid) {
+      return (
+        <div>
+          <StyledIcon component={EditIcon} onClick={revisequestion} />
+          <StyledIcon component={DeleteIcon} onClick={deletequestion} />
+        </div>
+      );
+    } else {
+      return (
+        <Button variant="contained" color="primary" onClick={showanswer}>
+          답변하기
+        </Button>
+      );
+    }
   };
 
   return (
@@ -146,37 +171,7 @@ const DetailQuestion = ({ match, history }) => {
             >
               <StyledIcon onClick={qcomment} component={MessageIcon} />
 
-              {isityou ? (
-                <div>
-                  <form onSubmit={revisequestion}>
-                    <Button
-                      variant="contanined"
-                      style={{ backgroundColor: "yellow" }}
-                      type="submit"
-                    >
-                      수정
-                    </Button>
-                  </form>
-
-                  <form onSubmit={deletequestion}>
-                    <Button
-                      variant="contained"
-                      style={{ backgroundColor: "red" }}
-                      type="submit"
-                    >
-                      삭제
-                    </Button>
-                  </form>
-                </div>
-              ) : (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={showanswer}
-                >
-                  답변하기
-                </Button>
-              )}
+              <div>{Icons()}</div>
             </div>
           </div>
           {qbool ? (

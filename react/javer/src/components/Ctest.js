@@ -2,10 +2,10 @@ import React from "react";
 import Carousel from "react-material-ui-carousel";
 import autoBind from "auto-bind";
 import estate_carousel from "../images/estate_carousel.png";
-import youngmoney from "../images/youngfindjobmoney.jpg";
+// import youngmoney from "../images/youngfindjobmoney.jpg";
 import crypcoin from "../images/cryptocoin.png";
 import mainstock from "../images/mainstock.jpg";
-import img_submain from "../images/img_submain.png";
+// import img_submain from "../images/img_submain.png";
 import untitile from "../images/Untitled.jpg";
 import mainzuno from "../images/mainzuno.png";
 import mainjob from "../images/mainjob.png";
@@ -47,9 +47,11 @@ function Project(props) {
             height: "100%"
           }}
         >
-          <h2>{props.item.name}</h2>
-          <p>{props.item.description}</p>
-          <Button className="CheckButton">Check!</Button>
+          <h2 style={{ fontFamily: "Nanum Gothic" }}>{props.item.name}</h2>
+          <p style={{ fontFamily: "Noto Serif KR" }}>
+            {props.item.description}
+          </p>
+          {/* <Button className="CheckButton">Check!</Button> */}
         </div>
       </Paper>
     </a>
@@ -57,13 +59,13 @@ function Project(props) {
 }
 
 const items = [
-  {
-    name: "ZunoBlog",
-    description: "",
-    color: "#C9A27E",
-    background: `url(${untitile})`,
-    url: "https://zunoxi.github.io/Portfolio/"
-  },
+  // {
+  //   name: "ZunoBlog",
+  //   description: "",
+  //   color: "#C9A27E",
+  //   background: `url(${untitile})`,
+  //   url: "https://zunoxi.github.io/Portfolio/"
+  // },
   {
     name: "코인 어디에서 봐야할까?",
     description: "지금바로 확인하세요!",

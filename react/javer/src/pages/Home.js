@@ -5,11 +5,11 @@ import CardPart from "../components/CardPart";
 import axios from "axios";
 import Card from "../components/Card";
 
-const Home = () => {
+const Home = () => { 
   const [newsdata, setNewsdata] = React.useState([]);
 
   useEffect(() => {
-    const url = `172.26.4.51:9090/api/news`;
+    const url = `http://localhost:8080/api/news`;
     axios
       .get(url)
       .then(res => {
@@ -48,7 +48,8 @@ const Home = () => {
     <Grid container direction="column" justify="center" alignItems="center">
       <Grid
         style={{
-          width: "100%"
+          width: "85%"
+          // marginLeft: "10%"
           // marginTop: "4rem"
         }}
       >
@@ -75,9 +76,10 @@ const Home = () => {
           <p
             style={{
               fontWeight: "bold",
-              fontSize: "20px",
+              fontSize: "2rem",
               marginLeft: "170px",
-              marginTop: "40px"
+              marginTop: "40px",
+              fontFamily: "Nanum Gothic"
             }}
           >
             자산관리 지금 시작하세요!
@@ -118,7 +120,9 @@ const Home = () => {
           style={{ width: "100%", backgroundColor: "white" }}
         >
           <Grid>
-            <h1 style={{ marginBottom: "1px" }}>News</h1>
+            <h1 style={{ marginBottom: "1px", fontFamily: "Noto Serif KR" }}>
+              News
+            </h1>
             <hr
               style={{
                 marginBottom: "20px",
@@ -134,8 +138,11 @@ const Home = () => {
           direction="row"
           justify="center"
           alignItems="center"
-          spacing={1}
-          style={{ marginBottom: "0px", backgroundColor: "white" }}
+          spacing={2}
+          style={{
+            marginBottom: "20px",
+            backgroundColor: "white"
+          }}
         >
           {newsdata.map(data => (
             <Grid item>
@@ -145,9 +152,9 @@ const Home = () => {
         </Grid>
       </Grid>
 
-      <Grid
+      {/* <Grid
         style={{ width: "100%", height: "10rem", backgroundColor: "#555555" }}
-      ></Grid>
+      ></Grid> */}
     </Grid>
   );
 };

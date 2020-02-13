@@ -5,11 +5,11 @@ import qa from "../images/Q&A2.png";
 import axios from "axios";
 import zunoblog from "../images/zunoblog.png";
 
-const Question = () => {
+const Question = ({ history }) => {
   const [datas, setDatas] = React.useState([]);
 
   useEffect(() => {
-    const url = "http://localhost:9090/api/board";
+    const url = "http://localhost:8080/api/board";
     axios
       .get(url)
       .then(res => {
@@ -22,9 +22,17 @@ const Question = () => {
       });
   }, []);
 
+  const doquestion = () => {
+    if (localStorage.getItem("uid")) {
+      history.push("/createquestion/0");
+    } else {
+      return alert("로그인이 필요합니다.");
+    }
+  };
+
   return (
     <Grid container style={{ marginTop: "10px" }}>
-      <h1>묻고 답하기</h1>
+      <h1 style={{ fontFamily: "Nanum Gothic" }}>묻고 답하기</h1>
       <Grid
         item
         xs={12}
@@ -41,10 +49,12 @@ const Question = () => {
       >
         <Grid item xs={7} container direction="row" alignItems="center">
           <img src={qa} alt="" height="70px" />
-          <h2>궁금한 것을 질문해 보세요!</h2>
+          <h2 style={{ fontFamily: "Nanum Gothic" }}>
+            궁금한 것을 질문해 보세요!
+          </h2>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" href="/createquestion/0">
+          <Button variant="contained" color="primary" onClick={doquestion}>
             질문하기
           </Button>
         </Grid>

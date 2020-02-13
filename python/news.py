@@ -10,6 +10,7 @@ sqldel = "delete from news"
 curs.execute(sqldel)
 url_list = []
 url_list.append("https://search.naver.com/search.naver?&where=news&query=%EC%B2%AD%EB%85%84%20%EA%B8%88%EC%9C%B5&sm=tab_pge&sort=1&photo=0&field=0&reporter_article=&pd=0&ds=&de=&docid=&nso=so:dd,p:all,a:all&mynews=0&start=1&refresh_start=0")
+url_list.append("https://search.naver.com/search.naver?&where=news&query=%EC%B2%AD%EB%85%84%20%EA%B8%88%EC%9C%B5&sm=tab_pge&sort=1&photo=0&field=0&reporter_article=&pd=0&ds=&de=&docid=&nso=so:dd,p:all,a:all&mynews=0&start=1&refresh_start=1")
 file_data = dict()
 data = []
 for url in url_list:

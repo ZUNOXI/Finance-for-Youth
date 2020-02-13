@@ -15,7 +15,7 @@ const StyledCard = styled(Card)`
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275
+    // minWidth: 275
   },
   bullet: {
     display: "inline-block",
@@ -37,7 +37,11 @@ export default function OutlinedCard(data) {
     <div>
       <StyledCard className={classes.root} variant="outlined">
         <CardContent>
-          <Typography variant="h5" component="h2">
+          <Typography
+            variant="h5"
+            component="h2"
+            style={{ fontFamily: "Nanum Gothic", marginBottom: "5%" }}
+          >
             {data.data.title}
           </Typography>
           <Typography
@@ -49,15 +53,30 @@ export default function OutlinedCard(data) {
               lineHeight: "2rem",
               height: "4rem",
               WebkitLineClamp: "2",
-              WebkitBoxOrient: "vertical"
+              WebkitBoxOrient: "vertical",
+              fontFamily: "Noto Serif KR",
+              fontSize: "1rem"
             }}
           >
             {data.data.description}
           </Typography>
         </CardContent>
-        <CardActions>
-          <Button size="small" href={data.data.url}>
-            Learn More
+        <CardActions
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginRight: "3%"
+          }}
+        >
+          <Button
+            size="small"
+            href={data.data.url}
+            style={{
+              border: "2px solid #9e9e9e",
+              fontFamily: "Noto Serif KR"
+            }}
+          >
+            알아보기
           </Button>
         </CardActions>
       </StyledCard>

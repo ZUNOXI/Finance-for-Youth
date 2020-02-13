@@ -37,7 +37,7 @@ const Answer = ({ data, calldata }) => {
   const editanswer = () => {
     if (editbool) {
       setEditbool(false);
-      const url = `http://localhost:9090/api/comment/commentupdate`;
+      const url = `http://localhost:8080/api/comment/commentupdate`;
       const datas = {
         cnum: data.cnum,
         bnum: data.bnum,
@@ -61,7 +61,7 @@ const Answer = ({ data, calldata }) => {
   };
 
   const deleteanswer = () => {
-    const url = `http://localhost:9090/api/comment/commentdelete`;
+    const url = `http://localhost:8080/api/comment/commentdelete`;
     const datas = {
       cnum: data.cnum
     };
@@ -78,7 +78,7 @@ const Answer = ({ data, calldata }) => {
 
   const icons = () => {
     // 사용자와 답변작성자가 일치하는지 확인
-    if (true) {
+    if (localStorage.getItem("uid") === data.uid) {
       return (
         <div>
           <StyledIcon onClick={acomment} component={MessageIcon} />

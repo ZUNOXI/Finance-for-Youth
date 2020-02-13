@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route } from "react-router-dom";
 import { Button, AppBar, Toolbar, Typography } from "@material-ui/core";
 import Stock from "./pages/Stock";
 import Home from "./pages/Home";
 import Fund from "./pages/Fund";
 import Coin from "./pages/Coin";
+import Policy from "./pages/Policy";
 import Estate from "./pages/Estate";
 import Question from "./pages/Question";
 import { makeStyles } from "@material-ui/core/styles";
@@ -19,8 +20,8 @@ import javalogo from "./images/javalogo.png";
 import springlogo from "./images/springlogo.png";
 import reactlogo from "./images/reactlogo.png";
 import dockerlogo from "./images/dockerlogo.png";
-import axios from "axios";
-import jwt_decode from "jwt-decode";
+// import axios from "axios";
+// import jwt_decode from "jwt-decode";
 import "./App.css";
 import { userActions } from "./redux/actions/userActions";
 
@@ -145,7 +146,7 @@ const App = () => {
           <Grid item xs={8} sm={10}>
             <Button href="/home">
               <Typography
-                variant="h5"
+                variant="h4"
                 className={"yo"}
                 style={{ color: "blue" }}
               >
@@ -154,25 +155,49 @@ const App = () => {
             </Button>
             {/* </a> */}
 
-            <Button color="inherit" href="/stock" style={{ fontSize: "100%" }}>
+            <Button
+              color="inherit"
+              href="/stock"
+              style={{ fontSize: "100%", fontFamily: "Nanum Gothic" }}
+            >
               주식
             </Button>
 
-            <Button color="inherit" href="/estate" style={{ fontSize: "100%" }}>
+            <Button
+              color="inherit"
+              href="/estate"
+              style={{ fontSize: "100%", fontFamily: "Nanum Gothic" }}
+            >
               부동산
             </Button>
 
-            <Button color="inherit" href="/fund" style={{ fontSize: "100%" }}>
+            <Button
+              color="inherit"
+              href="/fund"
+              style={{ fontSize: "100%", fontFamily: "Nanum Gothic" }}
+            >
               펀드
             </Button>
-            <Button color="inherit" href="/coin" style={{ fontSize: "100%" }}>
+            <Button
+              color="inherit"
+              href="/coin"
+              style={{ fontSize: "100%", fontFamily: "Nanum Gothic" }}
+            >
               코인
             </Button>
 
             <Button
               color="inherit"
+              href="/policy"
+              style={{ fontSize: "100%", fontFamily: "Nanum Gothic" }}
+            >
+              정책
+            </Button>
+
+            <Button
+              color="inherit"
               href="/question"
-              style={{ fontSize: "100%" }}
+              style={{ fontSize: "100%", fontFamily: "Nanum Gothic" }}
             >
               Q&A
             </Button>
@@ -180,8 +205,15 @@ const App = () => {
           <Grid item xs={2}>
             {jwtbool ? (
               <div>
-                {localStorage.getItem("uid")}
-                <Button color="inherit" onClick={logout}>
+                <div style={{ fontFamily: "Nanum Gothic", display: "inline" }}>
+                  {localStorage.getItem("uid")}
+                </div>
+                <Button
+                  color="inherit"
+                  onClick={logout}
+                  variant="outlined"
+                  style={{ marginLeft: "12px", fontFamily: "Nanum Gothic" }}
+                >
                   로그아웃
                 </Button>
               </div>
@@ -189,7 +221,8 @@ const App = () => {
               <Button
                 color="inherit"
                 onClick={handleOpen}
-                style={{ fontSize: "100%" }}
+                variant="outlined"
+                style={{ fontSize: "100%", fontFamily: "Nanum Gothic" }}
               >
                 로그인
               </Button>
@@ -278,6 +311,7 @@ const App = () => {
         <Route path="/estate" component={Estate} />
         <Route path="/fund" component={Fund} />
         <Route path="/coin" component={Coin} />
+        <Route path="/policy" component={Policy} />
         <Route path="/signup" component={Signup} />
         <Route path="/wirte" component={Write} />
 

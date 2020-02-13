@@ -11,8 +11,9 @@ const StyledIcon = styled(Icon)`
     cursor: pointer;
   }
 `;
-//Answer에서 요청
-const Comment = ({ data, cnum, calldata }) => {
+
+// DetailQuestion에서 요청
+const BoardComment = ({ data, bnum, calldata }) => {
   const [editbool, setEditbool] = React.useState(-1);
   const [editcontent, setEditcontent] = React.useState("");
 
@@ -21,14 +22,13 @@ const Comment = ({ data, cnum, calldata }) => {
   };
 
   const editboardcomment = data => {
-    console.log(data, "여기야아아아아");
     if (editbool !== -1) {
       setEditbool(-1);
       // 수정 신호 보내고 리프레쉬
-      const url = `http://localhost:9090/api/replycomment/replyupdate`;
+      const url = `http://localhost:8080/api/replyboard/replyupdate`;
       const datas = {
         rnum: data.rnum,
-        cnum: data.cnum,
+        bnum: data.bnum,
         uid: data.uid,
         rcontent: editcontent,
         rcreation_date: data.rcreation_date
@@ -48,7 +48,7 @@ const Comment = ({ data, cnum, calldata }) => {
   };
 
   const deleteboardcomment = num => {
-    const url = `http://localhost:9090/api/replycomment/replydelete`;
+    const url = `http://localhost:8080/api/replyboard/replydelete`;
     const datas = {
       rnum: num
     };
@@ -96,30 +96,35 @@ const Comment = ({ data, cnum, calldata }) => {
 
                   <p style={{ fontSize: "10px" }}>{one.rcreation_date}</p>
                 </Grid>
-                <Grid>
-                  {editbool === one.rnum ? (
-                    <StyledIcon
-                      component={DoneIcon}
-                      onClick={() => {
-                        editboardcomment(one);
-                      }}
-                    />
-                  ) : (
-                    <StyledIcon
-                      component={EditIcon}
-                      onClick={() => {
-                        editboardcomment(one);
-                      }}
-                    />
-                  )}
 
-                  <StyledIcon
-                    component={DeleteIcon}
-                    onClick={() => {
-                      deleteboardcomment(one.rnum);
-                    }}
-                  />
-                </Grid>
+                {one.uid === localStorage.getItem("uid") ? (
+                  <Grid>
+                    {editbool === one.rnum ? (
+                      <StyledIcon
+                        component={DoneIcon}
+                        onClick={() => {
+                          editboardcomment(one);
+                        }}
+                      />
+                    ) : (
+                      <StyledIcon
+                        component={EditIcon}
+                        onClick={() => {
+                          editboardcomment(one);
+                        }}
+                      />
+                    )}
+
+                    <StyledIcon
+                      component={DeleteIcon}
+                      onClick={() => {
+                        deleteboardcomment(one.rnum);
+                      }}
+                    />
+                  </Grid>
+                ) : (
+                  <></>
+                )}
               </Grid>
               <hr style={{ border: "0.5px solid #c8d0d0" }} />
             </div>
@@ -139,44 +144,57 @@ const Comment = ({ data, cnum, calldata }) => {
 
   const saveComment = e => {
     e.preventDefault();
-    const url = "http://localhost:9090/api/replycomment/replycommentreg";
-    const datas = {
-      cnum: cnum,
-      uid: "ssafy",
+    const url = "http://localhost:8080/api/replyboard/replyreg";
+    let datas = {
+      uid: localStorage.getItem("uid"),
+      bnum: bnum,
       rcontent: content
     };
     axios
       .post(url, datas)
       .then(res => {
-        console.log(res);
-        setContent("");
         calldata();
+        setContent("");
       })
       .catch(e => console.log(e));
   };
+  const [authbool, setAuthbool] = React.useState(false);
 
+  React.useEffect(() => {
+    if (localStorage.getItem("uid")) {
+      setAuthbool(true);
+    }
+  }, []);
   return (
-    <div className="whowho" style={{ marginBottom: "20px" }}>
-      <form onSubmit={saveComment}>
-        <TextField
-          variant="outlined"
-          value={content}
-          onChange={handleChange}
-          style={{
-            backgroundColor: "#fafafa",
-            width: "100%",
-            marginBottom: "10px"
-          }}
-        />
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button variant="contained" color="primary" type="submit">
-            등록
-          </Button>
-        </div>
-        <div>{showqmentel(data)}</div>
-      </form>
+    <div style={{ marginBottom: "20px", height: "100%" }}>
+      <div className="whowho">
+        <form onSubmit={saveComment}>
+          {authbool ? (
+            <div>
+              <TextField
+                variant="outlined"
+                value={content}
+                onChange={handleChange}
+                style={{
+                  backgroundColor: "#fafafa",
+                  width: "100%",
+                  marginBottom: "10px"
+                }}
+              />
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button variant="contained" color="primary" type="submit">
+                  등록
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
+          <div>{showqmentel(data)}</div>
+        </form>
+      </div>
     </div>
   );
 };
 
-export default Comment;
+export default BoardComment;

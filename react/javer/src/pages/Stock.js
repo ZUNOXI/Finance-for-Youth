@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import Ctest from "../components/Ctest";
 import CardPart from "../components/CardPart";
@@ -10,17 +10,17 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import TableFooter from '@material-ui/core/TableFooter';
-import TablePagination from '@material-ui/core/TablePagination';
+import TableFooter from "@material-ui/core/TableFooter";
+import TablePagination from "@material-ui/core/TablePagination";
 import Paper from "@material-ui/core/Paper";
-import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import IconButton from "@material-ui/core/IconButton";
+import FirstPageIcon from "@material-ui/icons/FirstPage";
+import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
+import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import stock from "../images/stock3.jpg";
-import "../pages/Stock.css"
-import PropTypes from 'prop-types';
-import LastPageIcon from '@material-ui/icons/LastPage';
+import "../pages/Stock.css";
+import PropTypes from "prop-types";
+import LastPageIcon from "@material-ui/icons/LastPage";
 
 const useStyles = makeStyles({
   table: {
@@ -31,8 +31,8 @@ const useStyles = makeStyles({
 const useStyles1 = makeStyles(theme => ({
   root: {
     flexShrink: 0,
-    marginLeft: theme.spacing(2.5),
-  },
+    marginLeft: theme.spacing(2.5)
+  }
 }));
 
 function addComma(number) {
@@ -73,24 +73,36 @@ function TablePaginationActions(props) {
         disabled={page === 0}
         aria-label="first page"
       >
-        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+        {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
-      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
-        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+      <IconButton
+        onClick={handleBackButtonClick}
+        disabled={page === 0}
+        aria-label="previous page"
+      >
+        {theme.direction === "rtl" ? (
+          <KeyboardArrowRight />
+        ) : (
+          <KeyboardArrowLeft />
+        )}
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="next page"
       >
-        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+        {theme.direction === "rtl" ? (
+          <KeyboardArrowLeft />
+        ) : (
+          <KeyboardArrowRight />
+        )}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="last page"
       >
-        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+        {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </div>
   );
@@ -100,14 +112,14 @@ TablePaginationActions.propTypes = {
   count: PropTypes.number.isRequired,
   onChangePage: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired
 };
 
 /* api로 데이터 가져와서 정리하기 */
 const Stock = () => {
   const [stockdata, setStockdata] = React.useState([]);
   useEffect(() => {
-    const url = `172.26.4.51:8080/api/stock`;
+    const url = `http://localhost:8080/api/stock`;
     axios
       .get(url)
       .then(res => {
@@ -152,17 +164,18 @@ const StockHeader = () => (
 
 const useStyles2 = makeStyles({
   table: {
-    minWidth: 500,
-  },
+    minWidth: 500
+  }
 });
 
-function CustomPaginationActionsTable({rows}) {
+function CustomPaginationActionsTable({ rows }) {
   // console.log(rows)
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(20);
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -174,7 +187,7 @@ function CustomPaginationActionsTable({rows}) {
   };
 
   const table = row => {
-    if (row.befnum <0) {
+    if (row.befnum < 0) {
       return (
         <>
           <TableCell align="right" style={{ color: "blue" }}>
@@ -194,11 +207,13 @@ function CustomPaginationActionsTable({rows}) {
   };
   return (
     <div>
-      <div class="section-headline text-center"
-      style={{
-        textAlign:"center"
-      }}>
-      <h2>TODAY's STOCK</h2>
+      <div
+        class="section-headline text-center"
+        style={{
+          textAlign: "center"
+        }}
+      >
+        <h2>TODAY's STOCK</h2>
       </div>
       <TableContainer component={Paper}>
         <Table
@@ -220,63 +235,54 @@ function CustomPaginationActionsTable({rows}) {
           </TableHead>
           <TableBody>
             {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
+              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              : rows
             ).map((row, idx) => (
               <TableRow key={row.name}>
                 <TableCell component="th" scope="data">
-                {page * rowsPerPage + idx +1}
+                  {page * rowsPerPage + idx + 1}
                 </TableCell>
-                <TableCell align="left">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">
-                  {row.now}</TableCell>
+                <TableCell align="left">{row.name}</TableCell>
+                <TableCell align="right">{row.now}</TableCell>
                 {table(row)}
-                <TableCell align="right">
-                  {row.close}</TableCell>
-                <TableCell align="right">
-                  {row.high}</TableCell>
-                <TableCell align="right">
-                  {row.open}</TableCell>
-                <TableCell align="right">
-                  {row.low}</TableCell>
-               </TableRow>
+                <TableCell align="right">{row.close}</TableCell>
+                <TableCell align="right">{row.high}</TableCell>
+                <TableCell align="right">{row.open}</TableCell>
+                <TableCell align="right">{row.low}</TableCell>
+              </TableRow>
             ))}
 
             {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )}
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
           </TableBody>
           <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[10, 20, 25, { label: 'All', value: -1 }]}
-              colSpan={3}
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: { 'aria-label': 'rows per page' },
-                native: true,
-              }}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[10, 20, 25, { label: "All", value: -1 }]}
+                colSpan={3}
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: { "aria-label": "rows per page" },
+                  native: true
+                }}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
         </Table>
       </TableContainer>
     </div>
   );
-
 }
 
 /* 주식정보 table */
-
 
 // export default Stock;
 export default Stock;
