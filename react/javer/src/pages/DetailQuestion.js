@@ -30,10 +30,20 @@ const DetailQuestion = ({ match, history }) => {
     axios
       .get(`http://15.165.18.192:8080/api/boarddetail/${match.params.id}`)
       .then(res => {
+        console.log(res);
         let tempres = res.data.resdata;
-        tempres.clist.reverse();
-        tempres.rblist.reverse();
-        tempres.clist.map(one => one.rlist.reverse());
+        if (tempres.clist) {
+          tempres.clist.reverse();
+          tempres.clist.map(one => {
+            if (one.rlist) {
+              one.rlist.reverse();
+            }
+          });
+        }
+        if (tempres.rblist) {
+          tempres.rblist.reverse();
+        }
+
         console.log(tempres, "tempres");
         setDatas(tempres);
         if (tempres.clist) {

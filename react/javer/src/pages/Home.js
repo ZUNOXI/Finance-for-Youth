@@ -5,7 +5,7 @@ import CardPart from "../components/CardPart";
 import axios from "axios";
 import Card from "../components/Card";
 
-const Home = () => { 
+const Home = () => {
   const [newsdata, setNewsdata] = React.useState([]);
 
   useEffect(() => {

@@ -22,6 +22,7 @@ function login(id, password) {
         return;
       }
       const token = res.data.token;
+      localStorage.setItem("uid", id);
       localStorage.setItem("jwtToken", token);
       // dispatch(token)
     })

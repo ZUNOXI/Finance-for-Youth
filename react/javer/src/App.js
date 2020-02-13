@@ -92,9 +92,8 @@ const App = () => {
       setOpen(false);
       alert("이미 로그인 되어있습니다.");
     } else {
-      setJwtbool(true);
+      setJwtbool(false);
       setOpen(false);
-      localStorage.setItem("uid", userid);
       userActions.login(userid, userpw);
     }
   };
@@ -105,6 +104,7 @@ const App = () => {
     }
     if (localStorage.getItem("jwtToken")) {
       localStorage.removeItem("jwtToken");
+      localStorage.removeItem("uid");
       setJwtbool(false);
     } else {
       setJwtbool(false);
@@ -228,7 +228,7 @@ const App = () => {
               </Button>
             )}
           </Grid>
-          <Grid item sm={2}></Grid>
+          <Grid item sm={1}></Grid>
 
           <Modal
             aria-labelledby="simple-modal-title"
