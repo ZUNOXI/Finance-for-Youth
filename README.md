@@ -7,4 +7,4 @@ Front-end : React.js, html, css, javascript
 Back-end : Springboot
 database : mysql db
 
-개발 홈페이지 : http://15.165.18.192:3000/home
+개발 홈페이지 : http://i02c113.p.ssafy.io/
