@@ -160,6 +160,8 @@ public class BoardController {
 	public ResponseEntity<Map<String, Object>> boardUpdate(@RequestBody Board_dto board){
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		Map<String, Object> msg = new HashMap<String, Object>();
+		System.out.println("게시글 수정 서비스입니당~~~~~~~~~~");
+		System.out.println(board);
 		try {
 			int update = bser.UpdateBoard(board.getBnum(), board.getUid(), board.getBtitle(), board.getBcontent()
 					, board.getBhit(), board.getBcreation_date(), board.getBctg());

@@ -121,9 +121,26 @@ public class RestMemController {
 	public ResponseEntity<Map<String, Object>> loginMem(@RequestBody Member mem){
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		Map<String, Object> msg = new HashMap<String, Object>();
+		System.out.println(mem);
+		Member dbmem = null;
+		String token = null;
 		try {
-			
-			msg.put("resmsg", "succ");
+			dbmem = ser.searchMem(mem.getUid());
+			System.out.println("dbmem은 >>" + dbmem);
+			if(dbmem.getUpw().equals(mem.getUpw())) {
+				System.out.println("=======토큰 생성========");
+				// 토큰 발급
+				token = ser.createToken(mem);
+				msg.put("token", token);
+				msg.put("resmsg", "succ");
+				System.out.println(token);
+			}
+			else {
+				System.out.println("일치하지 않아여 ㅎ");
+				System.out.println(mem.getUpw());
+				System.out.println(dbmem.getUpw());
+				msg.put("resmsg", "fail");
+			}
 			resEntity = new ResponseEntity<Map<String, Object>>(msg, HttpStatus.OK);
 		}catch(RuntimeException e) {
 			

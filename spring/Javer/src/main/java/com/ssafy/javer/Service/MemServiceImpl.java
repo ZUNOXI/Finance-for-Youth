@@ -1,5 +1,7 @@
 package com.ssafy.javer.Service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.MailException;
@@ -9,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.javer.DTO.Member;
 import com.ssafy.javer.Repository.MemRepo;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 @Service("MemServiceImpl")
 public class MemServiceImpl implements MemService{
 
@@ -72,6 +77,24 @@ public class MemServiceImpl implements MemService{
 		mail.setText("오 잘 전송되어버렸네~~!!! 에헿");
 		
 		javaMailSender.send(mail);
+	}
+
+	@Override
+	public String createToken(Member mem) {
+		System.out.println("In Service!!");
+		System.out.println(mem);
+		String key = "tmpKey";
+		String jwt = Jwts.builder()
+					.setHeaderParam("typ", "JWT")
+					.setHeaderParam("alg", "HS256")
+					.claim("uid", mem.getUid())
+					// 만료시간 30분
+					.setExpiration(new Date(System.currentTimeMillis() + 1*(1000*60*30)))
+					.signWith(SignatureAlgorithm.HS256, key.getBytes())
+					.compact();
+		
+		System.out.println(jwt);
+		return jwt;
 	}
 
 }

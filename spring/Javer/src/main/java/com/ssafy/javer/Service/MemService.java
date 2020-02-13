@@ -18,4 +18,6 @@ public interface MemService {
 	
 	public void sendMail(Member mem);
 	
+	public String createToken(Member mem);
+	
 }
