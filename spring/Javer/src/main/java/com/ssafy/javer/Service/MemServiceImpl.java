@@ -27,11 +27,11 @@ public class MemServiceImpl implements MemService{
 	@Override
 	public void addMem(String uid, String upw, String uname, String unickname, String uphonenum,
 			String uemail, String uaddress, String ufavor_ctg, String uprofilephoto, String ubirth_date,
-			String ujoin_date, String rcmd_blst) {
+			String ujoin_date, String rcmd_blst, String salt) {
 		// TODO Auto-generated method stub
 		repo.addMem(new Member(uid,upw,uname,unickname,uphonenum,
 			uemail,uaddress,ufavor_ctg,uprofilephoto,ubirth_date,
-			ujoin_date,rcmd_blst));
+			ujoin_date,rcmd_blst, salt));
 		
 		System.out.println(uemail);
 		// 회원 가입이 완료되었음을 메일로 전송하는 메소드
@@ -54,11 +54,11 @@ public class MemServiceImpl implements MemService{
 	@Override
 	public void updateMem(String uid, String upw, String uname, String unickname, String uphonenum,
 			String uemail, String uaddress, String ufavor_ctg, String uprofilephoto, String ubirth_date,
-			String ujoin_date, String rcmd_blst) {
+			String ujoin_date, String rcmd_blst, String salt) {
 		// TODO Auto-generated method stub
 		repo.updateMem(new Member(uid,upw,uname,unickname,uphonenum,
 			uemail,uaddress,ufavor_ctg,uprofilephoto,ubirth_date,
-			ujoin_date,rcmd_blst));
+			ujoin_date,rcmd_blst, salt));
 	}
 
 	@Override
@@ -88,6 +88,7 @@ public class MemServiceImpl implements MemService{
 					.setHeaderParam("typ", "JWT")
 					.setHeaderParam("alg", "HS256")
 					.claim("uid", mem.getUid())
+					.claim("unickname", mem.getUnickname())
 					// 만료시간 30분
 					.setExpiration(new Date(System.currentTimeMillis() + 1*(1000*60*30)))
 					.signWith(SignatureAlgorithm.HS256, key.getBytes())

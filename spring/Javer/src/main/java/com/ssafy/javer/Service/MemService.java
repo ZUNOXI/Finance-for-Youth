@@ -6,13 +6,13 @@ public interface MemService {
 	
 	public void addMem(String uid, String upw, String uname, String unickname, String uphonenum, String uemail,
 			String uaddress, String ufavor_ctg, String uprofilephoto, String ubirth_date, String ujoin_date,
-			String rcmd_blst);
+			String rcmd_blst, String salt);
 	
 	public void delMem(String uid);
 	
 	public void updateMem(String uid, String upw, String uname, String unickname, String uphonenum, String uemail,
 			String uaddress, String ufavor_ctg, String uprofilephoto, String ubirth_date, String ujoin_date,
-			String rcmd_blst);
+			String rcmd_blst, String salt);
 	
 	public Member searchMem(String uid);
 	

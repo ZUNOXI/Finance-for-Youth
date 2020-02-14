@@ -8,10 +8,10 @@
 	<insert id="insertmember" parameterType="member">
 		insert into member(uid,upw,uname,unickname,uphonenum,
 								uemail,uaddress,ufavor_ctg,uprofilephoto,
-								ubirth_date,ujoin_date,rcmd_blst)
+								ubirth_date,ujoin_date,rcmd_blst,salt)
 								values(#{uid},#{upw},#{uname},#{unickname},#{uphonenum},
 								#{uemail},#{uaddress},#{ufavor_ctg},#{uprofilephoto},
-								#{ubirth_date},#{ujoin_date},#{rcmd_blst})
+								#{ubirth_date},#{ujoin_date},#{rcmd_blst},#{salt})
 	</insert>
 	
 	<delete id="deletemember" parameterType="String">
@@ -22,7 +22,7 @@
 		update member set uid=#{uid},upw=#{upw},uname=#{uname},unickname=#{unickname}
 						,uphonenum=#{uphonenum},uemail=#{uemail},uaddress=#{uaddress},ufavor_ctg=#{ufavor_ctg}
 						,uprofilephoto=#{uprofilephoto},ubirth_date=#{ubirth_date},ujoin_date=#{ujoin_date}
-						,rcmd_blst=#{rcmd_blst} where uid=#{uid}
+						,rcmd_blst=#{rcmd_blst}, salt=#{salt} where uid=#{uid}
 	</update>
 	
 	<select id="selectmember" parameterType="String" resultType="member">

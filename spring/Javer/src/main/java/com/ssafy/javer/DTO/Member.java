@@ -1,5 +1,8 @@
 package com.ssafy.javer.DTO;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Member {
 	private String uid;
 	private String upw;
@@ -13,8 +16,12 @@ public class Member {
 	private String ubirth_date;
 	private String ujoin_date;
 	private String rcmd_blst;
+	private String salt;
+	private List<String> ufavorList;
 	
-	
+	public Member() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Member(String uid, String upw, String uname, String unickname, String uphonenum, String uemail,
 			String uaddress, String ufavor_ctg, String uprofilephoto, String ubirth_date, String ujoin_date,
@@ -32,6 +39,41 @@ public class Member {
 		this.ubirth_date = ubirth_date;
 		this.ujoin_date = ujoin_date;
 		this.rcmd_blst = rcmd_blst;
+	}
+	
+	public Member(String uid, String upw, String uname, String unickname, String uphonenum, String uemail,
+			String uaddress, String ufavor_ctg, String uprofilephoto, String ubirth_date, String ujoin_date,
+			String rcmd_blst, String salt) {
+		super();
+		this.uid = uid;
+		this.upw = upw;
+		this.uname = uname;
+		this.unickname = unickname;
+		this.uphonenum = uphonenum;
+		this.uemail = uemail;
+		this.uaddress = uaddress;
+		this.ufavor_ctg = ufavor_ctg;
+		this.uprofilephoto = uprofilephoto;
+		this.ubirth_date = ubirth_date;
+		this.ujoin_date = ujoin_date;
+		this.rcmd_blst = rcmd_blst;
+		this.salt = salt;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public List<String> getUfavorList() {
+		return ufavorList;
+	}
+	
+	public void setUfavorList(List<String> ufavorList) {
+		this.ufavorList = ufavorList;
 	}
 
 	public String getUid() {

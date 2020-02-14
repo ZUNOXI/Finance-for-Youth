@@ -15,13 +15,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// TODO Auto-generated method stub
-		System.out.println("webmvcconfig입니다.......띠부레");
+		System.out.println("webmvcconfig입니다 적용중...");
 		registry.addInterceptor(interceptor)
-//					.addPathPatterns("/*")
-//			        .excludePathPatterns("/api")
-			        .excludePathPatterns("/api/login") //로그인 쪽은 예외처리를 한다.
-					.excludePathPatterns("/api/board") 
-					.excludePathPatterns("/api/boarddetail/*"); 
+					.addPathPatterns("/api")
+					.excludePathPatterns("/addMem") 
+			        .excludePathPatterns("/login") //로그인 쪽은 예외처리를 한다.
+			        .excludePathPatterns("/board") 
+					.excludePathPatterns("/boarddetail/*"); 
 	}
 
 }

@@ -31,8 +31,8 @@ import io.swagger.annotations.ApiOperation;
 public class RestMemController {
 	
 	@Autowired
-	@Qualifier("MemServiceImpl")
 	MemService ser;
+//	@Qualifier("MemServiceImpl")
 	
 	//프로필 사진 올리기랑 내 생일값 날짜 형식 맞추기.
 	@PostMapping("/addMem")
@@ -40,19 +40,23 @@ public class RestMemController {
 	public ResponseEntity<Map<String, Object>> addMem(@RequestBody Member mem){
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		Map<String, Object> msg = new HashMap<String, Object>();
+		System.out.println(mem);	
+		System.out.println(mem.getUfavorList());
+		String ctg = mem.getUfavorList().toString();
+		
 		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
 		Date currentTime = new Date ();
 		String date = mSimpleDateFormat.format ( currentTime );
 		
+		String salt = BCrypt.gensalt();
+		System.out.println(salt);
 		// 패스워드는 해싱하여 저장한다. (단방향)
-		String encryptedPW = BCrypt.hashpw(mem.getUpw(), BCrypt.gensalt());
-		
-		System.out.println(mem);
+		String encryptedPW = BCrypt.hashpw(mem.getUpw(), salt);
 		System.out.println(encryptedPW);
 		try {
 			ser.addMem(mem.getUid(), encryptedPW,mem.getUname(),mem.getUnickname(),mem.getUphonenum(),mem.getUemail(),
-					mem.getUaddress(),mem.getUfavor_ctg(),mem.getUprofilephoto(),mem.getUbirth_date(),date,
-					" ");
+					mem.getUaddress(), ctg, mem.getUprofilephoto(),mem.getUbirth_date(),date,
+					" ", salt);
 			msg.put("resmsg", "succ");
 			resEntity = new ResponseEntity<Map<String, Object>>(msg, HttpStatus.OK);
 		}catch(RuntimeException e) {
@@ -68,12 +72,13 @@ public class RestMemController {
 	public ResponseEntity<Map<String, Object>> updateMem(@RequestBody Member mem){
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		Map<String, Object> msg = new HashMap<String, Object>();
-		
+		String salt = BCrypt.gensalt();
+		System.out.println(salt);
+		String encryptedPW = BCrypt.hashpw(mem.getUpw(), salt);
 		try {
-			
-			ser.updateMem(mem.getUid(), mem.getUpw(),mem.getUname(),mem.getUnickname(),mem.getUphonenum(),mem.getUemail(),
+			ser.updateMem(mem.getUid(), encryptedPW, mem.getUname(),mem.getUnickname(),mem.getUphonenum(),mem.getUemail(),
 					mem.getUaddress(),mem.getUfavor_ctg(),mem.getUprofilephoto(),mem.getUbirth_date(),mem.getUjoin_date(),
-					"");
+					"", salt);
 			msg.put("resmsg", "succ");
 			resEntity = new ResponseEntity<Map<String, Object>>(msg, HttpStatus.OK);
 		}catch(RuntimeException e) {
@@ -126,8 +131,12 @@ public class RestMemController {
 		String token = null;
 		try {
 			dbmem = ser.searchMem(mem.getUid());
+			String key = BCrypt.hashpw(mem.getUpw(), dbmem.getSalt());
+			System.out.println(mem.getUpw());
+			System.out.println(dbmem.getSalt());
+			System.out.println(key);
 			System.out.println("dbmem은 >>" + dbmem);
-			if(dbmem.getUpw().equals(mem.getUpw())) {
+			if(dbmem.getUpw().equals(key)) {
 				System.out.println("=======토큰 생성========");
 				// 토큰 발급
 				token = ser.createToken(mem);
