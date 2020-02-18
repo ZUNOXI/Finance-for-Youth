@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Grid } from "@material-ui/core";
-import Ctest from "../components/Ctest";
-import CardPart from "../components/CardPart";
+import React, { useEffect } from "react";
+// import { Grid } from "@material-ui/core";
+// import Ctest from "../components/Ctest";
+// import CardPart from "../components/CardPart";
 import axios from "axios";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -22,11 +22,11 @@ import "../pages/Stock.css";
 import PropTypes from "prop-types";
 import LastPageIcon from "@material-ui/icons/LastPage";
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650
-  }
-});
+// const useStyles = makeStyles({
+//   table: {
+//     minWidth: 650
+//   }
+// });
 
 const useStyles1 = makeStyles(theme => ({
   root: {
@@ -35,15 +35,15 @@ const useStyles1 = makeStyles(theme => ({
   }
 }));
 
-function addComma(number) {
-  var number_parts = number.split(".");
-  var regexp = /\B(?=(\d{3})+(?!\d))/g;
-  if (number_parts.length > 1) {
-    return number_parts[0].replace(regexp, ",") + "." + number_parts[1];
-  } else {
-    return number.replace(regexp, ",");
-  }
-}
+// function addComma(number) {
+//   var number_parts = number.split(".");
+//   var regexp = /\B(?=(\d{3})+(?!\d))/g;
+//   if (number_parts.length > 1) {
+//     return number_parts[0].replace(regexp, ",") + "." + number_parts[1];
+//   } else {
+//     return number.replace(regexp, ",");
+//   }
+// }
 
 function TablePaginationActions(props) {
   const classes = useStyles1();

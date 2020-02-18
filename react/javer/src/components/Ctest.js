@@ -6,7 +6,7 @@ import estate_carousel from "../images/estate_carousel.png";
 import crypcoin from "../images/cryptocoin.png";
 import mainstock from "../images/mainstock.jpg";
 // import img_submain from "../images/img_submain.png";
-import untitile from "../images/Untitled.jpg";
+// import untitile from "../images/Untitled.jpg";
 import mainzuno from "../images/mainzuno.png";
 import mainjob from "../images/mainjob.png";
 import {
@@ -16,7 +16,7 @@ import {
   //   Radio,
   //   RadioGroup,
   Paper,
-  Button,
+  // Button,
   Grid
 } from "@material-ui/core";
 
@@ -67,36 +67,36 @@ const items = [
   //   url: "https://zunoxi.github.io/Portfolio/"
   // },
   {
-    name: "코인 어디에서 봐야할까?",
-    description: "지금바로 확인하세요!",
+    name: "Cryptocurrency",
+    description: "블록체인 기술을 기반으로 만들어진 온라인 암호화폐",
     color: "#64ACC8",
     background: `url(${crypcoin})`,
     url: ""
   },
   {
-    name: "주식 투자",
-    description: "어떤 회사를 선택하시겠습니까?",
+    name: "Stock investment",
+    description: "한눈에 보는 주요 KOSDAQ 정보",
     color: "#7D85B1",
     background: `url(${mainstock})`,
     url: ""
   },
   {
     name: "청년전세임대주택",
-    description: "놓치지 마세요",
+    description: "놓치지 마세요 미래를 준비하세요",
     color: "#CE7E78",
     background: `url(${estate_carousel})`,
     url: "https://apply.lh.or.kr/LH/index.html#MN::CLCC_MN_0010:"
   },
   {
     name: "청년구직활동지원금",
-    description: "지금 바로 신청하세요",
+    description: "당신의 꿈을 응원합니다.",
     color: "#C9A27E",
     background: `url(${mainzuno})`,
     url: "https://youthcenter.go.kr/main.do"
   },
   {
     name: "ZunoBlog",
-    description: "",
+    description: "Zuno를 공유합니다.",
     color: "#C9A27E",
     background: `url(${mainjob})`,
     url: "https://zunoxi.tistory.com"

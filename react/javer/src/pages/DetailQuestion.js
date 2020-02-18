@@ -9,6 +9,7 @@ import axios from "axios";
 import BoardComment from "../components/BoardComment";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Collapse from "@material-ui/core/Collapse";
 
 const StyledIcon = styled(Icon)`
   margin-right: 0.5rem;
@@ -24,7 +25,6 @@ const DetailQuestion = ({ match, history }) => {
 
   const [datas, setDatas] = useState([]); //글
   const [answerdata, setAnswerdata] = useState([]); // 답변
-  const [isityou, setIsityou] = React.useState(false);
 
   const calldata = () => {
     axios
@@ -38,6 +38,7 @@ const DetailQuestion = ({ match, history }) => {
             if (one.rlist) {
               one.rlist.reverse();
             }
+            return null;
           });
         }
         if (tempres.rblist) {
@@ -48,12 +49,6 @@ const DetailQuestion = ({ match, history }) => {
         setDatas(tempres);
         if (tempres.clist) {
           setAnswerdata(tempres.clist);
-        }
-        if (tempres.uid === localStorage.getItem("uid")) {
-          // 현재 사용자가 글 작성자와 일치하는지 확인
-          setIsityou(true);
-        } else {
-          setIsityou(false);
         }
       })
       .catch(e => {
@@ -70,6 +65,7 @@ const DetailQuestion = ({ match, history }) => {
       setQbool(false);
     } else {
       setQbool(true);
+      setAbool(false);
     }
   };
 
@@ -79,6 +75,7 @@ const DetailQuestion = ({ match, history }) => {
     } else {
       if (localStorage.getItem("uid")) {
         setAbool(true);
+        setQbool(false);
       } else {
         return alert("로그인이 필요합니다.");
       }
@@ -184,24 +181,20 @@ const DetailQuestion = ({ match, history }) => {
               <div>{Icons()}</div>
             </div>
           </div>
-          {qbool ? (
+          <Collapse in={qbool}>
             <BoardComment
               data={datas.rblist}
               bnum={datas.bnum}
               calldata={calldata}
             />
-          ) : (
-            <></>
-          )}
-          {abool ? (
+          </Collapse>
+          <Collapse in={abool}>
             <CreateAnswer
               calldata={calldata}
               showanswer={showanswer}
               qcomment={qcomment}
             />
-          ) : (
-            <></>
-          )}
+          </Collapse>
         </div>
       </Grid>
       <Grid container justify="flex-end" style={{ marginTop: "2%" }}>

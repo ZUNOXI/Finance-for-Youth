@@ -1,0 +1,9 @@
+From node:10
+
+RUN mkdir -p /app
+
+WORKDIR /app
+
+ADD . /app
+
+CMD ["npm","run","start"]

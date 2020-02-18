@@ -15,7 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Input from "@material-ui/core/Input";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
-const Signup = () => {
+const Signup = ({ history }) => {
   const [values, setValues] = useState({
     id: "",
     password: "",
@@ -49,7 +49,7 @@ const Signup = () => {
   const save = e => {
     console.log(e.target.value);
     e.preventDefault();
-    const URL = "http://15.165.18.192:8080/rest/addMem";
+    const URL = "http://15.165.18.192:8080/api/addMem";
     const data = {
       uid: values.id,
       upw: values.password,
@@ -58,7 +58,7 @@ const Signup = () => {
       uphonenum: values.phonenumber,
       uemail: values.email,
       uaddress: values.address,
-      ufavor_ctg: values.favor_ctg,
+      ufavorList: values.favor_ctg,
       uprofilephoto: values.photo,
       ubirth_date: values.birth_date
     };
@@ -67,6 +67,7 @@ const Signup = () => {
       .then(res => {
         console.log(data);
         console.log(res);
+        history.push("/");
       })
       .catch(e => console.log(e));
   };

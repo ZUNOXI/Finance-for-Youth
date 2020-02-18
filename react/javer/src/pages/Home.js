@@ -4,6 +4,7 @@ import Ctest from "../components/Ctest";
 import CardPart from "../components/CardPart";
 import axios from "axios";
 import Card from "../components/Card";
+import Slide from "@material-ui/core/Slide";
 
 const Home = () => {
   const [newsdata, setNewsdata] = React.useState([]);
@@ -34,21 +35,27 @@ const Home = () => {
     },
     {
       title: "부동산",
-      description: "저렴하고 좋은 방을 찾아보세요!",
+      description: "주변의 부동산 중개소를 알아보세요!",
       url: "/estate"
     },
     {
-      title: "코인투자",
-      description: "새로운 투자처를 찾으시는 분들에게 추천합니다.",
+      title: "암호화폐",
+      description: "금융의 미래가치를 확인하세요!",
       url: "/coin"
     }
   ];
 
   return (
-    <Grid container direction="column" justify="center" alignItems="center">
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+      style={{ marginTop: "30px" }}
+    >
       <Grid
         style={{
-          width: "85%"
+          width: "100%"
           // marginLeft: "10%"
           // marginTop: "4rem"
         }}
@@ -77,12 +84,12 @@ const Home = () => {
             style={{
               fontWeight: "bold",
               fontSize: "2rem",
-              marginLeft: "170px",
+              marginLeft: "8%",
               marginTop: "40px",
               fontFamily: "Nanum Gothic"
             }}
           >
-            자산관리 지금 시작하세요!
+            Young People - Invest in the future!
           </p>
         </Grid>
         <Grid
@@ -103,14 +110,16 @@ const Home = () => {
             style={{
               width: "100%",
               height: "100%",
-              marginLeft: "10%",
-              marginRight: "10%"
+              marginLeft: "5%",
+              marginRight: "5%"
             }}
           >
-            {middledata.map(data => (
-              <Grid item xs={3}>
-                <Card data={data} />
-              </Grid>
+            {middledata.map((data, idx) => (
+              <Slide direction="left" in={true}>
+                <Grid item xs={3} key={idx}>
+                  <Card data={data} />
+                </Grid>
+              </Slide>
             ))}
           </Grid>
         </Grid>
@@ -133,22 +142,41 @@ const Home = () => {
             />
           </Grid>
         </Grid>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          spacing={2}
-          style={{
-            marginBottom: "20px",
-            backgroundColor: "white"
-          }}
-        >
-          {newsdata.map(data => (
-            <Grid item>
-              <CardPart key={data.title} data={data} />
-            </Grid>
-          ))}
+        <Grid container direction="column">
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={2}
+            style={{
+              marginBottom: "20px",
+              backgroundColor: "white"
+            }}
+          >
+            {newsdata.slice(0, 4).map((data, idx) => (
+              <Grid item xs={3} key={idx}>
+                <CardPart data={data} />
+              </Grid>
+            ))}
+          </Grid>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={2}
+            style={{
+              marginBottom: "20px",
+              backgroundColor: "white"
+            }}
+          >
+            {newsdata.slice(4, 8).map((data, idx) => (
+              <Grid item xs={3}>
+                <CardPart key={idx} data={data} />
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
       </Grid>
 

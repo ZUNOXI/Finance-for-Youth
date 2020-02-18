@@ -135,7 +135,7 @@ const CreateQuestion = ({ history, match }) => {
               <Tab label="주식" {...a11yProps(0)} name="stock" />
               <Tab label="부동산" {...a11yProps(1)} name="estate" />
               <Tab label="펀드" {...a11yProps(2)} name="fund" />
-              <Tab label="코인" {...a11yProps(3)} name="coin" />
+              <Tab label="암호화폐" {...a11yProps(3)} name="coin" />
               <Tab label="기타" {...a11yProps(4)} name="other" />
             </Tabs>
           </AppBar>

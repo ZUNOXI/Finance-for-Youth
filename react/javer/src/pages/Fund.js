@@ -55,7 +55,11 @@ const Fund = () => {
   return (
     <div>
       <header>
-        <img src={fundbanner} style={{ width: "100%" }} />
+        <img
+          src={fundbanner}
+          alt="fundbanner"
+          style={{ width: "100%", marginTop: "30px" }}
+        />
       </header>
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={0} md={2}></Grid>

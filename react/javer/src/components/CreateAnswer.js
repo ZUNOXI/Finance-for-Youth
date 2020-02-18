@@ -16,7 +16,7 @@ const CreateAnswer = withRouter(({ match, calldata, showanswer }) => {
     const url = "http://15.165.18.192:8080/api/comment/commentreg";
     const datas = {
       bnum: match.params.id,
-      uid: "ssafy",
+      uid: localStorage.getItem("uid"),
       ccontent: values.content
     };
     axios

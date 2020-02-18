@@ -146,7 +146,7 @@ const Comment = ({ data, cnum, calldata }) => {
     const url = "http://15.165.18.192:8080/api/replycomment/replycommentreg";
     const datas = {
       cnum: cnum,
-      uid: "ssafy",
+      uid: localStorage.getItem("uid"),
       rcontent: content
     };
     axios

@@ -7,6 +7,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DoneIcon from "@material-ui/icons/Done";
 import axios from "axios";
+import Collapse from "@material-ui/core/Collapse";
 
 const StyledIcon = styled(Icon)`
   margin-right: 5px;
@@ -158,7 +159,9 @@ const Answer = ({ data, calldata }) => {
           <p style={{ fontSize: "12px" }}>{data.ccreation_date}</p>
           <div>{icons()}</div>
         </footer>
-        <div>{show(acbool)}</div>
+        <Collapse in={acbool}>
+          <div>{show(acbool)}</div>
+        </Collapse>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { policyInfo } from "../components/PolicyInfo";
 import PolicyCard from "../components/PolicyCard";
 import { Grid, Paper, Tab, Tabs } from "@material-ui/core";
 import youngpolicy from "../images/youngpolicy.jpg";
+import Grow from "@material-ui/core/Grow";
 
 const Policy = () => {
   const [tabvalue, setTabvalue] = React.useState(0);
@@ -20,7 +21,7 @@ const Policy = () => {
   };
 
   return (
-    <div>
+    <div style={{ marginTop: "30px" }}>
       <img
         src={youngpolicy}
         alt=""
@@ -46,9 +47,11 @@ const Policy = () => {
       </Paper>
       <Grid container direction="row" spacing={3}>
         {datavalue.map((data, idx) => (
-          <Grid item xs={3}>
-            <PolicyCard data={data} key={idx} />
-          </Grid>
+          <Grow in={true}>
+            <Grid item xs={3}>
+              <PolicyCard data={data} key={idx} />
+            </Grid>
+          </Grow>
         ))}
       </Grid>
     </div>
