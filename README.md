@@ -2,7 +2,7 @@
 
 현재 개발단계 : 2월 말 개발 완료 예상
 
-Infra : AWS, Docker \n
+Infra : AWS, Docker &nbsp
 Front-end : React.js, html, css, javascript \n
 Back-end : Springboot \n
 database : mysql db \n
