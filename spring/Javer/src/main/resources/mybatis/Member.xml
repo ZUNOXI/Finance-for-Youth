@@ -19,7 +19,7 @@
 	</delete>
 	
 	<update id="updatemember" parameterType="member">
-		update member set uid=#{uid},upw=#{upw},uname=#{uname},unickname=#{unickname}
+		update member set upw=#{upw},uname=#{uname},unickname=#{unickname}
 						,uphonenum=#{uphonenum},uemail=#{uemail},uaddress=#{uaddress},ufavor_ctg=#{ufavor_ctg}
 						,uprofilephoto=#{uprofilephoto},ubirth_date=#{ubirth_date},ujoin_date=#{ujoin_date}
 						,rcmd_blst=#{rcmd_blst}, salt=#{salt} where uid=#{uid}

@@ -3,6 +3,8 @@ package com.ssafy.javer.Controller;
 import java.text.SimpleDateFormat	;	
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -72,16 +74,24 @@ public class RestMemController {
 	public ResponseEntity<Map<String, Object>> updateMem(@RequestBody Member mem){
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		Map<String, Object> msg = new HashMap<String, Object>();
+		System.out.println("======회원 수정입니다=====");
+		String ctg = mem.getUfavorList().toString();
 		String salt = BCrypt.gensalt();
 		System.out.println(salt);
+		System.out.println(ctg);
 		String encryptedPW = BCrypt.hashpw(mem.getUpw(), salt);
+		System.out.println(mem);
+		Member tmpmem = null;
 		try {
-			ser.updateMem(mem.getUid(), encryptedPW, mem.getUname(),mem.getUnickname(),mem.getUphonenum(),mem.getUemail(),
-					mem.getUaddress(),mem.getUfavor_ctg(),mem.getUprofilephoto(),mem.getUbirth_date(),mem.getUjoin_date(),
-					"", salt);
+			tmpmem = ser.searchMem(mem.getUid());
+			System.out.println(tmpmem);
+			ser.updateMem(mem.getUid(), tmpmem.getUpw(), mem.getUname(),mem.getUnickname(),mem.getUphonenum(),mem.getUemail(),
+					mem.getUaddress(), ctg, mem.getUprofilephoto(),mem.getUbirth_date(),tmpmem.getUjoin_date(),
+					tmpmem.getUprofilephoto(), tmpmem.getSalt());
 			msg.put("resmsg", "succ");
 			resEntity = new ResponseEntity<Map<String, Object>>(msg, HttpStatus.OK);
 		}catch(RuntimeException e) {
+			e.printStackTrace();
 			msg.put("resmsg", "fail");
 			resEntity = new ResponseEntity<Map<String, Object>>(msg, HttpStatus.OK);
 		}
@@ -109,8 +119,19 @@ public class RestMemController {
 	public ResponseEntity<Map<String, Object>> selMem(@RequestBody Member mem){
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		Map<String, Object> msg = new HashMap<String, Object>();
+		
+		Member memData = null;
 		try {
-			msg.put("resdata", ser.searchMem(mem.getUid()));
+			memData = ser.searchMem(mem.getUid());
+			String favor = memData.getUfavor_ctg();
+			favor = favor.substring(1, favor.length()-1);
+			String[] favorArr = favor.split(", ");
+			List<String> favorList = new LinkedList<String>();
+			for(int i=0; i<favorArr.length; i++)
+				favorList.add(favorArr[i]);
+			memData.setUfavorList(favorList);
+			
+			msg.put("resdata", memData);
 			msg.put("resmsg", "succ");
 			resEntity = new ResponseEntity<Map<String, Object>>(msg, HttpStatus.OK);
 		}catch(RuntimeException e) {
