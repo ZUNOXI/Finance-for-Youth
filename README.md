@@ -5,7 +5,7 @@
 Infra : AWS, Docker
 
 
-Front-end : React.js(Create-app-react), html, css, javascript
+Front-end : React.js(Create-app-react), html, css(bootstrap), javascript
 
 
 Back-end : Springboot
