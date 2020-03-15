@@ -15,3 +15,5 @@ database : mysql db
 
 
 개발 홈페이지 : http://i02c113.p.ssafy.io/
+
+you can check our website!!
