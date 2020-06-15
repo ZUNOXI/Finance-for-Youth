@@ -12,7 +12,3 @@ Back-end : Springboot
 
    
 database : mysql db
-
-
-개발 홈페이지 : http://i02c113.p.ssafy.io/
-(현재 홈페이지 폐쇄중)
